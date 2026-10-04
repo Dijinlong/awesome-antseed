@@ -1,0 +1,99 @@
+{
+  "_comment": "Machine-readable source for the README. Edit this file, not the README.",
+  "_schema": {
+    "name": "project name",
+    "url": "canonical link",
+    "description": "one sentence, what it does",
+    "category": "tools | guides | notes",
+    "status": "usable | early | experimental",
+    "verified": "date you last confirmed it works (YYYY-MM-DD)"
+  },
+  "projects": [
+    {
+      "name": "antseed-seller-watchdog",
+      "url": "https://github.com/Dijinlong/antseed-seller-watchdog",
+      "description": "Checks the four failure modes that make a healthy-looking antseed seller invisible to buyers.",
+      "category": "tools",
+      "status": "early",
+      "verified": "2026-10-04"
+    },
+    {
+      "name": "antseed-network-stats",
+      "url": "https://github.com/Dijinlong/antseed-network-stats",
+      "description": "Flattens network browse output into one row per seller so you can compare pricing and trust scores.",
+      "category": "tools",
+      "status": "early",
+      "verified": "2026-10-04"
+    },
+    {
+      "name": "base-gas-guard",
+      "url": "https://github.com/Dijinlong/base-gas-guard",
+      "description": "Exits non-zero when a Base wallet drops below a configured ETH floor, so you get warned before services degrade.",
+      "category": "tools",
+      "status": "usable",
+      "verified": "2026-10-04"
+    },
+    {
+      "name": "llm-endpoint-bench",
+      "url": "https://github.com/Dijinlong/llm-endpoint-bench",
+      "description": "Measures time-to-first-token, throughput and error rate for any OpenAI-compatible endpoint.",
+      "category": "tools",
+      "status": "early",
+      "verified": "2026-10-04"
+    },
+    {
+      "name": "antseed-price-sync",
+      "url": "https://github.com/Dijinlong/antseed-price-sync",
+      "description": "Compares what your node advertises against upstream cost and flags the models you are losing money on.",
+      "category": "tools",
+      "status": "early",
+      "verified": "2026-10-04"
+    },
+    {
+      "name": "openai-compat-multiplexer",
+      "url": "https://github.com/Dijinlong/openai-compat-multiplexer",
+      "description": "Puts several OpenAI-compatible upstreams behind one endpoint with health tracking and fallback.",
+      "category": "tools",
+      "status": "early",
+      "verified": "2026-10-04"
+    },
+    {
+      "name": "dijinlong-api-examples",
+      "url": "https://github.com/Dijinlong/dijinlong-api-examples",
+      "description": "Wire-level examples for calling an OpenAI-compatible API from curl, Python, Node and Go.",
+      "category": "guides",
+      "status": "usable",
+      "verified": "2026-10-04"
+    }
+  ],
+  "notes": [
+    {
+      "symptom": "The seller process is active, the port is listening, /metadata returns HTTP 200 -- but no orders arrive.",
+      "cause": "Advertising can pause while the process stays perfectly healthy. The tell is an empty `providers` array in /metadata, not the HTTP status.",
+      "how_to_check": "curl /metadata and look at providers[].services",
+      "category": "notes",
+      "verified": "2026-10-04"
+    },
+    {
+      "symptom": "The node disappears from buyer lists with no error anywhere.",
+      "cause": "A gas-starved wallet pauses advertising below the configured floor. Nothing crashes, so nothing logs a failure.",
+      "how_to_check": "Compare the wallet's ETH balance against the advertising gas floor",
+      "category": "notes",
+      "verified": "2026-10-04"
+    },
+    {
+      "symptom": "You are the cheapest seller for a model and still get nothing.",
+      "cause": "Buyers configured with a minimum trust score filter you out before price is ever considered. Trust is a gate, not a ranking factor.",
+      "how_to_check": "Look at your trust score breakdown: history, usage, power, identity",
+      "category": "notes",
+      "verified": "2026-10-04"
+    },
+    {
+      "symptom": "A seller shows a trust score of zero and still has thousands of completed orders.",
+      "cause": "Not every buyer runs the default configuration. Some lower the gate or pin a specific peer by id.",
+      "how_to_check": "network browse --json, then compare volume against trust score",
+      "category": "notes",
+      "verified": "2026-10-04"
+    }
+  ]
+}
